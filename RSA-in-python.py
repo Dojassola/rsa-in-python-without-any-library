@@ -21,16 +21,12 @@ def fact(n):
 while True:
         P=76245601
         Q=99192971
-        print(f"P= {P}")
-        print(f"Q= {Q}")
         MOD=P*Q
         T = (P-1)*(Q-1)
-        print("MOD=",MOD)
-        print("T=",T)
         E = 65537
-        print("E=",E)
         D=mod_inverse(E,T)
-        print("D=",D)
+        print(f"PRIVATE KEY: (P={P} Q={Q} D={D})")
+        print(f"PUBLIC KEY: (MOD={MOD} E={E})")
         def encrypt_pub(me):
             en = pow(me,E, MOD)
             return en
@@ -52,14 +48,22 @@ while True:
                 if c == 2:
                         numform+=" "
                         c=0
-        print(numform, "numform")
+        print(numform, "numform of string")
         for i in numform.split():
                 i=int(i)
                 i = encrypt_pub(i)
                 cipher+=str(i)+" "
-        print(cipher, "cipher")
+        print(cipher, "ENCRYPTED")
         message=""
         for i in cipher.split():
-                message+=str(encrypt_priv(int(i)))+" "
-        print(message)
+                message+=str(encrypt_priv(int(i)))
+        c=0
+        msg=""
+        for i in message:
+                c+=1
+                msg+=str(i)
+                if c == 3:
+                        msg+=" "
+                        c=0
+        print(msg, "decrypted")
         print("*"*20)
